@@ -1,5 +1,8 @@
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
 
 public class PlayerController {
     private MancalaModel mancalaModel;
@@ -8,7 +11,7 @@ public class PlayerController {
         this.mancalaModel = mancalaModel;
         this.boardView = boardView;
 
-        //this.boardView.addInputListner(new InputListner());
+                //this.boardView.addInputListner(new InputListner());
     }
     public void updateBoardView(){
 
