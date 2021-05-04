@@ -67,4 +67,7 @@ public class MancalaModel {
 		}
 		return extraTurn;
 	}
+	public int[] getPits(){
+		return pits;
+	}
 }
