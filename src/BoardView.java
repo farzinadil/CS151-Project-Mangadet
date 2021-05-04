@@ -3,18 +3,22 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 public class BoardView extends JFrame implements ChangeListener {
     MancalaModel mancalaModel;
+    PlayerController controller;
     int[] pits;
     Style style;
     private static final int ICON_WIDTH = 1000;
     private static final int ICON_HEIGHT = 600;
 
-    public BoardView (MancalaModel mancalaModel, Style style){
+    public BoardView (MancalaModel mancalaModel, PlayerController controller, Style style){
         this.mancalaModel = mancalaModel;
+        this.controller = controller;
         pits = this.mancalaModel.getPits();
         this.style = style;
         Icon boardIcon = new Icon()
@@ -32,12 +36,12 @@ public class BoardView extends JFrame implements ChangeListener {
                 Ellipse2D.Double b3 = new Ellipse2D.Double(475, 35, 100, 125);
                 Ellipse2D.Double b2 = new Ellipse2D.Double(600, 35, 100, 125);
                 Ellipse2D.Double b1 = new Ellipse2D.Double(725, 35, 100, 125);
-                Ellipse2D.Double a6 = new Ellipse2D.Double(100, 185, 100, 125);
-                Ellipse2D.Double a5 = new Ellipse2D.Double(225, 185, 100, 125);
-                Ellipse2D.Double a4 = new Ellipse2D.Double(350, 185, 100, 125);
-                Ellipse2D.Double a3 = new Ellipse2D.Double(475, 185, 100, 125);
-                Ellipse2D.Double a2 = new Ellipse2D.Double(600, 185, 100, 125);
-                Ellipse2D.Double a1 = new Ellipse2D.Double(725, 185, 100, 125);
+                Ellipse2D.Double a1 = new Ellipse2D.Double(100, 185, 100, 125);
+                Ellipse2D.Double a2 = new Ellipse2D.Double(225, 185, 100, 125);
+                Ellipse2D.Double a3 = new Ellipse2D.Double(350, 185, 100, 125);
+                Ellipse2D.Double a4 = new Ellipse2D.Double(475, 185, 100, 125);
+                Ellipse2D.Double a5 = new Ellipse2D.Double(600, 185, 100, 125);
+                Ellipse2D.Double a6 = new Ellipse2D.Double(725, 185, 100, 125);
                 g2.draw(leftRectangle);
                 g2.draw(rightRectangle);
                 g2.draw(b6);
@@ -53,19 +57,67 @@ public class BoardView extends JFrame implements ChangeListener {
                 g2.draw(a2);
                 g2.draw(a1);
 
-                /*
-                Ellipse2D.Double sc = new Ellipse2D.Double(130, 45, 10, 10);
-                g2.fill(sc);
-                Ellipse2D.Double sc2 = new Ellipse2D.Double(145, 45, 10, 10);
-                g2.fill(sc2);
-                Ellipse2D.Double sc3 = new Ellipse2D.Double(160, 45, 10, 10);
-                g2.fill(sc3);
-                 */
-                int[] testarray = {3};
-                int start = 130;
-                for (int i = 0; i < testarray[0]; i++){
-                    g2.fill( new Ellipse2D.Double(start+i*15, 45, 10, 10));
+
+                int[] tp = {4, 4, 4, 4, 10, 4, 8, 2,4, 4, 4, 4 , 4, 4};
+                pits = tp;
+                int startX;
+                int startY;
+                for( int pitNumber = 0; pitNumber < pits.length; pitNumber++){
+                    if (pitNumber == 6){
+                        startX = 853;
+                        startY = 37;
+                    }
+                    else if (pitNumber == 13){
+                        startX = 32;
+                        startY = 37;
+                    }
+                    else if (pitNumber <= 5){
+                        startX = 130+pitNumber*125;
+                        startY = 45;
+                    }
+                    else{
+                        startX = 130+(pitNumber-7)*125;
+                        startY = 195;
+                    }
+                    int rowCount = 0;
+                    for (int rowIndex = 0; rowIndex < pits[pitNumber]; rowIndex++){
+                        if (rowCount == 3){
+                            startY += 15;
+                            startX -= 45;
+                            rowCount = 0;
+                        }
+                        g2.fill( new Ellipse2D.Double(startX, startY, 10, 10));
+                        startX += 15;
+                        rowCount++;
+                    }
                 }
+
+            }
+        };
+        MouseListener listener = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.mouseClick(e.getX(), e.getY());
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
 
             }
         };
@@ -93,35 +145,76 @@ public class BoardView extends JFrame implements ChangeListener {
         textA6.setBounds(775, 300, 50, 50);
         add(textA6);
 
-        JLabel textB1 = new JLabel("B1");
+        JLabel textB1 = new JLabel("B6");
         textB1.setBounds(150, 0, 50, 50);
         add(textB1);
 
-        JLabel textB2 = new JLabel("B2");
+        JLabel textB2 = new JLabel("B5");
         textB2.setBounds(275, 0, 50, 50);
         add(textB2);
 
-        JLabel textB3 = new JLabel("B3");
+        JLabel textB3 = new JLabel("B4");
         textB3.setBounds(400, 0, 50, 50);
         add(textB3);
 
-        JLabel textB4 = new JLabel("B4");
+        JLabel textB4 = new JLabel("B3");
         textB4.setBounds(525, 0, 50, 50);
         add(textB4);
 
-        JLabel textB5 = new JLabel("B5");
+        JLabel textB5 = new JLabel("B2");
         textB5.setBounds(650, 0, 50, 50);
         add(textB5);
 
-        JLabel textB6 = new JLabel("B6");
+        JLabel textB6 = new JLabel("B1");
         textB6.setBounds(775, 0, 50, 50);
         add(textB6);
 
+        JButton undoButton = new JButton("Undo");
+        undoButton.setBounds(25, 450, 100, 35);
+        add(undoButton);
+
+        String[] stoneOptions = {"2", "3", "4"};
+        JComboBox stoneNumber = new JComboBox(stoneOptions);
+        stoneNumber.setBounds(775, 450, 100, 35);
+        add(stoneNumber);
+
+        JLabel statusLabel = new JLabel();
+        statusLabel.setText(controller.getGameStatus());
+        statusLabel.setBounds(325, 450, 400, 35);
+        add(statusLabel);
+
+        MouseListener buttonListner = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.undo();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        };
+        undoButton.addMouseListener(buttonListner);
+
 
         JLabel barIconLabel = new JLabel(boardIcon);
+        barIconLabel.addMouseListener(listener);
         add(barIconLabel);
-
-
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -129,18 +222,13 @@ public class BoardView extends JFrame implements ChangeListener {
         setVisible(true);
 
 
-
-        //add(addMouseListener();)
     }
-    /*
-    void addCalculateListener(ActionListener listenForCalcButton){
-        calculateButton.addActionListener(listenForCalcButton);
-    }
-    */
 
     @Override
     public void stateChanged(ChangeEvent e) {
         repaint();
         pits = mancalaModel.getPits();
     }
+
+
 }
