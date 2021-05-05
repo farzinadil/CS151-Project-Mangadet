@@ -62,13 +62,21 @@ public class PlayerController {
     public void updateBoardView(){
 
     }
+    
     public void mouseClick (int mouseXCoordinate, int mouseYCoordinate){
+    	// Player makes a move, note: method returns true if player get another move
+    	boolean extraTurn = mancalaModel.move(pitClicked(mouseXCoordinate, mouseYCoordinate),player);
+    	if (!extraTurn) {
+    		player++;
+    		if (player ==3) {player=1;}
+    	}
         System.out.println(pitClicked(mouseXCoordinate, mouseYCoordinate));
     }
-    private void move(int pit){
+    
+    //private void move(int pit){
 
-        previouslyUndone = false;
-    }
+      //  previouslyUndone = false;
+    //}
     public void undo(){
         if (previouslyUndone){
 
