@@ -11,7 +11,7 @@ public class MancalaModel {
 	MancalaModel() {
 		// set all pits to 0
 		for (int i = 0; i < 14; i++) {
-			setPits(i, 0);
+			pits[i]=0;
 		}
 	}
 	
@@ -81,7 +81,6 @@ public class MancalaModel {
 		// Notify view
 		ChangeEvent event = new ChangeEvent(this);
 		listener.stateChanged(event);
-		
 	}
 	
 	public int[] getPits(){
@@ -90,5 +89,10 @@ public class MancalaModel {
 	
 	public int getStones(int i) {
 		return pits[i];
+	}
+
+	public void setListener(ChangeListener listener) {
+		this.listener=listener;
+		
 	}
 }
