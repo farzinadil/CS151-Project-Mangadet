@@ -21,6 +21,9 @@ public class BoardView extends JFrame implements ChangeListener {
         this.controller = controller;
         pits = this.mancalaModel.getPits();
         this.style = style;
+        // Putting the board view as a listener in the mancala model
+        mancalaModel.setListener(this);
+        
         Icon boardIcon = new Icon()
         {
             public int getIconWidth() { return ICON_WIDTH; }
@@ -58,7 +61,7 @@ public class BoardView extends JFrame implements ChangeListener {
                 g2.draw(a1);
 
 
-                int[] tp = {4, 4, 4, 4, 10, 4, 8, 2,4, 4, 4, 4 , 4, 4};
+                int[] tp = mancalaModel.getPits();
                 pits = tp;
                 int startX;
                 int startY;
@@ -209,8 +212,8 @@ public class BoardView extends JFrame implements ChangeListener {
 
             }
         };
+        
         undoButton.addMouseListener(buttonListner);
-
 
         JLabel barIconLabel = new JLabel(boardIcon);
         barIconLabel.addMouseListener(listener);
@@ -220,7 +223,6 @@ public class BoardView extends JFrame implements ChangeListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
-
 
     }
 
