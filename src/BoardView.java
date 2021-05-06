@@ -77,8 +77,7 @@ public class BoardView extends JFrame implements ChangeListener {
                 g2.draw(a2);
                 g2.draw(a1);
 
-
-
+                
                 pits = mancalaModel.getPits();
                 int startX;
                 int startY;
@@ -92,12 +91,13 @@ public class BoardView extends JFrame implements ChangeListener {
                         startY = 37;
                     }
                     else if (pitNumber <= 5){
-                        startX = 130+pitNumber*125;
-                        startY = 45;
+                    	startX = 130+(pitNumber)*125;
+                        startY = 195;
                     }
                     else{
-                        startX = 130+(pitNumber-7)*125;
-                        startY = 195;
+                        startX = 750-(pitNumber-7)*125;
+                        startY = 45;
+                   
                     }
                     int rowCount = 0;
                     for (int rowIndex = 0; rowIndex < pits[pitNumber]; rowIndex++){
