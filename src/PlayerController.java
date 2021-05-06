@@ -91,7 +91,7 @@ public class PlayerController {
     public void updateBoardView(int stoneCount){
         if (!gameStarted){
             int[] pits = {stoneCount, stoneCount, stoneCount, stoneCount, stoneCount, stoneCount, 0, stoneCount, stoneCount, stoneCount, stoneCount, stoneCount, stoneCount, 0};
-            // mancalaModel.setPits(pits);
+            mancalaModel.setPits(pits);
             gameStarted = true;
             gameStatus = "Player 1 turn";
         }
@@ -104,10 +104,10 @@ public class PlayerController {
      */
     public void mouseClick (int mouseXCoordinate, int mouseYCoordinate){
         int pitCLicked = pitClicked(mouseXCoordinate, mouseYCoordinate);
-        if (pitCLicked >= 0 && pitCLicked <= 5 && player == 1 && !gameOver){
+        if (pitCLicked >= 0 && pitCLicked <= 5 && player == 1 && !gameOver && mancalaModel.getPits()[pitCLicked] != 0){
             move(pitCLicked);
         }
-        else if(pitCLicked >= 7 && pitCLicked <= 12 && player == 2 && !gameOver){
+        else if(pitCLicked >= 7 && pitCLicked <= 12 && player == 2 && !gameOver && mancalaModel.getPits()[pitCLicked] != 0){
             move(pitCLicked);
         }
     }
@@ -136,14 +136,17 @@ public class PlayerController {
      */
     private void move(int pit){
         previousPits = mancalaModel.getPits();
-        mancalaModel.move(pit,player);
-        if (player == 1){
-            player = 2; // get turn from mancalaModel
+        if (mancalaModel.move(pit,player-1)){
+            gameStatus = "Player " + player + "gets 2nd turn";
+        }
+        else if (player == 1){
+            player = 2;
+            gameStatus = "Player " + player + "'s turn";
         }
         else {
-            player = 1; // get turn from mancalaModel
+            player = 1;
+            gameStatus = "Player " + player + "'s turn";
         }
-        gameStatus = "Player " + player + "'s turn";
         previouslyUndone = false;
         checkGameOver();
     }
@@ -155,7 +158,7 @@ public class PlayerController {
             gameStatus = "Cannot undo twice";
         }
         else {
-            // mancalaModel.setPits(previousPits);
+            mancalaModel.setPits(previousPits);
             if (player == 1){
                 player = 2;
                 gameStatus = "Player 2 turn";

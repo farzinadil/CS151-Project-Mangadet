@@ -1,18 +1,21 @@
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.util.ArrayList;
 
 public class MancalaModel {
 	// Position A1-A6 is 0-5, B1-B6 is 7-12,
 	// 6 is the main pit for A, and 13 is the main pit for B
-	private int[] pits = new int[14];
-	private ChangeListener listener;
+	private int[] pits;
+	ArrayList<ChangeListener> listeners;
 	
 	
 	MancalaModel() {
 		// set all pits to 0
+		pits = new int[14];
 		for (int i = 0; i < 14; i++) {
 			pits[i]=0;
 		}
+		listeners = new ArrayList<ChangeListener>();
 	}
 	
 	/**
@@ -72,17 +75,37 @@ public class MancalaModel {
 				}
 			}
 		}
+		for (ChangeListener l : listeners)
+		{
+			l.stateChanged(new ChangeEvent(this));
+		}
+		for (int i = 0; i < pits.length; i++){
+			System.out.print(pits[i] + " ");
+		}
+		System.out.println("");
 		return extraTurn;
 	}
 	
 	public void setPits(int position, int value) {
 		// Update data
+		System.out.println("here");
 		pits[position] = value;
 		// Notify view
 		ChangeEvent event = new ChangeEvent(this);
-		listener.stateChanged(event);
+		for (ChangeListener l : listeners)
+		{
+			l.stateChanged(new ChangeEvent(this));
+		}
 	}
-	
+
+	public void setPits(int[] pits){
+		this.pits = pits;
+		for (ChangeListener l : listeners)
+		{
+			l.stateChanged(new ChangeEvent(this));
+		}
+	}
+
 	public int[] getPits(){
 		return pits;
 	}
@@ -91,8 +114,8 @@ public class MancalaModel {
 		return pits[i];
 	}
 
-	public void setListener(ChangeListener listener) {
-		this.listener=listener;
-		
+	public void attach(ChangeListener c)
+	{
+		listeners.add(c);
 	}
 }

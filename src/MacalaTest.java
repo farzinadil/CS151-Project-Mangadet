@@ -4,5 +4,6 @@ public class MacalaTest {
         MancalaModel mancalaModel = new MancalaModel();
         PlayerController controller = new PlayerController(mancalaModel);
         BoardView boardView = new BoardView(mancalaModel, controller, style);
+        mancalaModel.attach(boardView);
     }
 }
