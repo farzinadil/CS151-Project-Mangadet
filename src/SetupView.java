@@ -44,6 +44,7 @@ public class SetupView extends JFrame implements ActionListener {
 		  MancalaModel m = new MancalaModel();
 		  PlayerController p = new PlayerController(m);
 		  BoardView b = new BoardView(m, p, st);
+		  m.attach(b);
 		  dispose();
 	  }
 }
