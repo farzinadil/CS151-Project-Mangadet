@@ -35,6 +35,9 @@ public class MancalaModel {
 
 		while(hand>0) {
 			pos++;
+			if (pos==14) {
+				pos=0;
+			}
 			// First check if we are in mancala pit
 			if (pos == 6 || pos == 13) {
 				// only put here if its player A's turn
