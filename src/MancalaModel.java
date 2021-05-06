@@ -87,8 +87,29 @@ public class MancalaModel {
 		{
 			l.stateChanged(new ChangeEvent(this));
 		}
-		System.out.println(getStones(0));
 		return extraTurn;
+	}
+	
+	/**
+	 * redistributes the remaining stones to the mancala pits
+	 * when one side is empty
+	 */
+	public void endGame() {
+		int finalScore = 0;
+		if (pits[0]==0&&pits[1]==0&&pits[2]==0&&pits[3]==0&&pits[4]==0&&pits[5]==0) {
+			// player A is empty give stones to B
+			for (int i =7;i<14;i++) {
+				finalScore += pits[i];
+			}
+			setPits(13,finalScore);
+		}
+		else {
+			// player B is empty
+			for (int i =0;i<7;i++) {
+				finalScore += pits[i];
+			}
+			setPits(6,finalScore);
+		}
 		
 	}
 	
@@ -122,4 +143,6 @@ public class MancalaModel {
 	{
 		listeners.add(c);
 	}
+
+	
 }
