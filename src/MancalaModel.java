@@ -22,18 +22,6 @@ public class MancalaModel {
 	}
 	
 	/**
-	 * Method to set up the initial number of stones in each pit
-	 * @param numPits Number of stones in each pit before the start of the game
-	 */
-	public void setUp(int numStones) {
-		for (int i = 0; i < 14; i++) {
-			if (i!=6&&i!=13) {
-				pits[i]=numStones;
-			}
-		}
-	}
-	
-	/**
 	 * moves the stones recursively for one turn.
 	 * @param position integer from 0-5 or 7-12.
 	 * @param player integer 0 for player A, 1 for player B
