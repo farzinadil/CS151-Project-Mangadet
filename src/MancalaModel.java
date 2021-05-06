@@ -2,13 +2,16 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
 
+
 public class MancalaModel {
 	// Position A1-A6 is 0-5, B1-B6 is 7-12,
 	// 6 is the main pit for A, and 13 is the main pit for B
 	private int[] pits;
 	ArrayList<ChangeListener> listeners;
 	
-	
+	/**
+	 * Constructor that creates initial mancalamodel with all pits set to 0
+	 */
 	MancalaModel() {
 		// set all pits to 0
 		pits = new int[14];
@@ -16,6 +19,18 @@ public class MancalaModel {
 			pits[i]=0;
 		}
 		listeners = new ArrayList<ChangeListener>();
+	}
+	
+	/**
+	 * Method to set up the initial number of stones in each pit
+	 * @param numPits Number of stones in each pit before the start of the game
+	 */
+	public void setUp(int numStones) {
+		for (int i = 0; i < 14; i++) {
+			if (i!=6&&i!=13) {
+				pits[i]=numStones;
+			}
+		}
 	}
 	
 	/**
@@ -31,6 +46,7 @@ public class MancalaModel {
 		boolean extraTurn = false; // will return true if player gets an extra turn
 
 		while(hand>0) {
+			pos++;
 			// First check if we are in mancala pit
 			if (pos == 6 || pos == 13) {
 				// only put here if its player A's turn
@@ -75,6 +91,7 @@ public class MancalaModel {
 				}
 			}
 		}
+		
 		for (ChangeListener l : listeners)
 		{
 			l.stateChanged(new ChangeEvent(this));
