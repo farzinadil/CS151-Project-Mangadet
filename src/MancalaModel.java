@@ -63,20 +63,20 @@ public class MancalaModel {
 				if (hand == 0) {
 					// player A
 					if (player == 0 && (pos >= 0 && pos <= 5)) {
-						if (getStones(pos) == 1 && getStones(pos+7)>0) {
+						if (getStones(pos) == 1 && getStones(pos+6)>0) {
 							// put into player A's mancala
-							setPits(0,getStones(0) + getStones(pos+7)+1);
-							setPits(pos,0);
-							setPits(pos+7,0);
+							setPits(6,getStones(6) + getStones(pos+6));
+							//setPits(pos,0);
+							setPits(pos+6,0);
 						}
 					}
 					// player B
 					else if (player == 1 && (pos >= 7 && pos <= 12)) {
-						if (getStones(pos) == 1 && getStones(pos+7)>0) {
+						if (getStones(pos) == 1 && getStones(pos-6)>0) {
 							// put into player B's mancala
-							setPits(6,getStones(pos) + getStones(pos-7)+1);
+							setPits(13,getStones(pos) + getStones(pos-6)+1);
 							setPits(pos,0);
-							setPits(pos-7, 0);
+							setPits(pos-6, 0);
 						}
 					}
 				}
@@ -87,7 +87,9 @@ public class MancalaModel {
 		{
 			l.stateChanged(new ChangeEvent(this));
 		}
+		System.out.println(getStones(0));
 		return extraTurn;
+		
 	}
 	
 	public void setPits(int position, int value) {
