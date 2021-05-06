@@ -91,7 +91,6 @@ public class MancalaModel {
 		// Update data
 		pits[position] = value;
 		// Notify view
-		ChangeEvent event = new ChangeEvent(this);
 		for (ChangeListener l : listeners)
 		{
 			l.stateChanged(new ChangeEvent(this));
