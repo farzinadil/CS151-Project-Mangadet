@@ -79,16 +79,11 @@ public class MancalaModel {
 		{
 			l.stateChanged(new ChangeEvent(this));
 		}
-		for (int i = 0; i < pits.length; i++){
-			System.out.print(pits[i] + " ");
-		}
-		System.out.println("");
 		return extraTurn;
 	}
 	
 	public void setPits(int position, int value) {
 		// Update data
-		System.out.println("here");
 		pits[position] = value;
 		// Notify view
 		ChangeEvent event = new ChangeEvent(this);
