@@ -119,8 +119,9 @@ public class PlayerController {
      */
     private void checkGameOver (){
         int[] pits = mancalaModel.getPits();
-        if (pits[0] == 0 && pits[1] == 0 && pits[2] == 0 && pits[3] == 0 && pits[4] == 0 && pits[5] == 0 && pits[7] == 0 && pits[8] == 0 && pits[9] == 0 && pits[10] == 0 && pits[11] == 0 && pits[12] == 0){
-            if (pits[6] > pits[13]){
+        if ((pits[0] == 0 && pits[1] == 0 && pits[2] == 0 && pits[3] == 0 && pits[4] == 0 && pits[5] == 0) || (pits[7] == 0 && pits[8] == 0 && pits[9] == 0 && pits[10] == 0 && pits[11] == 0 && pits[12] == 0)){
+            mancalaModel.endGame();
+        	if (pits[6] > pits[13]){
                 winner = "PLayer 1 wins";
             }
             else if (pits[13] > pits[6]){

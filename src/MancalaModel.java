@@ -62,24 +62,18 @@ public class MancalaModel {
 				hand--;
 				// need to check if the last stone has been placed.
 				// need to check if a steal is possible
-				if (hand == 0) {
+				if (hand == 0 && (getStones(pos) == 1 && getStones(12-pos)>0)) {
 					// player A
 					if (player == 0 && (pos >= 0 && pos <= 5)) {
-						if (getStones(pos) == 1 && getStones(pos+6)>0) {
-							// put into player A's mancala
-							setPits(6,getStones(6) + getStones(pos+6));
-							//setPits(pos,0);
-							setPits(pos+6,0);
-						}
+						// put into player A's mancala
+						setPits(6,getStones(6) + getStones(12-pos));
+						setPits(12-pos,0);
 					}
 					// player B
 					else if (player == 1 && (pos >= 7 && pos <= 12)) {
-						if (getStones(pos) == 1 && getStones(pos-6)>0) {
-							// put into player B's mancala
-							setPits(13,getStones(pos) + getStones(pos-6)+1);
-							setPits(pos,0);
-							setPits(pos-6, 0);
-						}
+						// put into player B's mancala
+						setPits(13,getStones(13) + getStones(12-pos));
+						setPits(12-pos, 0);
 					}
 				}
 			}
@@ -89,9 +83,34 @@ public class MancalaModel {
 		{
 			l.stateChanged(new ChangeEvent(this));
 		}
-		System.out.println(getStones(0));
 		return extraTurn;
 
+	}
+	
+	/**
+	 * redistributes the remaining stones to the mancala pits
+	 * when one side is empty
+	 */
+	public void endGame() {
+		int finalScore = 0;
+		if (pits[0]==0&&pits[1]==0&&pits[2]==0&&pits[3]==0&&pits[4]==0&&pits[5]==0) {
+			// player A is empty give stones to B
+			for (int i =7;i<14;i++) {
+				finalScore += pits[i];
+				setPits(i,0);
+			}
+			
+			setPits(13,finalScore);
+		}
+		else {
+			// player B is empty
+			for (int i =0;i<7;i++) {
+				finalScore += pits[i];
+				setPits(i,0);
+			}
+			setPits(6,finalScore);
+		}
+		
 	}
 
 	public void setPits(int position, int value) {
@@ -133,4 +152,7 @@ public class MancalaModel {
 	{
 		listeners.add(c);
 	}
+
+
+	
 }
