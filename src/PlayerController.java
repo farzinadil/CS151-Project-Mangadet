@@ -18,8 +18,11 @@ public class PlayerController {
     private boolean firstMoveMade;
     private boolean gameOver;
     private String winner;
-    int previousPlayer;
-    String previousStatus;
+    private int previousPlayer;
+    private String previousStatus;
+    private int consecutiveredos;
+    private boolean player1moveSinceRedo;
+    private boolean player2moveSinceRedo;
 
     /**
      * Constructor of controller.
@@ -32,6 +35,9 @@ public class PlayerController {
         gameStarted = false;
         gameOver = false;
         firstMoveMade = false;
+        consecutiveredos = 0;
+        player1moveSinceRedo = true;
+        player1moveSinceRedo = true;
 
     }
     /**
@@ -147,14 +153,19 @@ public class PlayerController {
         else if (player == 1){
             player = 2;
             gameStatus = "Player " + player + "'s turn";
+            player1moveSinceRedo = true;
         }
         else {
             player = 1;
             gameStatus = "Player " + player + "'s turn";
+            player2moveSinceRedo = true;
         }
 
         if (!firstMoveMade){
             firstMoveMade = true;
+        }
+        if (player1moveSinceRedo && player2moveSinceRedo){
+            consecutiveredos = 0;
         }
         previouslyUndone = false;
         checkGameOver();
@@ -172,11 +183,17 @@ public class PlayerController {
         else if (gameOver){
             gameStatus = "Game has ended.";
         }
+        else if (consecutiveredos >= 3){
+            gameStatus = "Can't Redo more than three times in a row.";
+        }
         else {
             mancalaModel.undo();
             player = previousPlayer;
             gameStatus = previousStatus;
             previouslyUndone = true;
+            player2moveSinceRedo = false;
+            player1moveSinceRedo = false;
+            consecutiveredos++;
         }
     }
 
