@@ -24,6 +24,7 @@ public class SetupView extends JFrame implements ActionListener {
 		  p.add(s3);
 		  add(p);
 		  pack();
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setVisible(true);
 	  }
 
