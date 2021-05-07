@@ -184,7 +184,7 @@ public class PlayerController {
             gameStatus = "Game has ended.";
         }
         else if (consecutiveredos >= 3){
-            gameStatus = "Can't Redo more than three times in a row.";
+            gameStatus = "Can't Undo more than three times in a row.";
         }
         else {
             mancalaModel.undo();
