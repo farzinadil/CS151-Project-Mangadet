@@ -17,7 +17,6 @@ public class PlayerController {
     private boolean gameStarted;
     private boolean gameOver;
     private String winner;
-    int previousPits[];
     int previousPlayer;
     String previousStatus;
 
