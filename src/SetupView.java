@@ -30,17 +30,15 @@ public class SetupView extends JFrame implements ActionListener {
 	  public void actionPerformed(ActionEvent e) {
 		  String s = ((JButton) e.getSource()).getText();
 		  Style st = null;
-		  int style = s.charAt(6);
-		  /*if(style == 1) {
+		  if(s.equals("Style 1")) {
 			  st = new Style1();
 		  }
-		  else if(style == 2) {
+		  /* else if(s.equals("Style 2")) {
 			  st = new Style2();
 		  }
-		  else if(style == 3) {
+		  else if(s.equals("Style 3")) {
 			  st = new Style3();
 		  } */
-		  st = new Style1();
 		  MancalaModel m = new MancalaModel();
 		  PlayerController p = new PlayerController(m);
 		  BoardView b = new BoardView(m, p, st);
