@@ -2,7 +2,7 @@ import java.awt.Color;
 public class Style2 implements Style {
     private boolean hasBackground = true;
     public Color getPitColor() {
-        return Color.RED;
+        return Color.decode("#ebc634");
     }
 
     public Color getStoneColorP1() {

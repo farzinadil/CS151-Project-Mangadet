@@ -36,12 +36,12 @@ public class SetupView extends JFrame implements ActionListener {
 		  if(s.equals("Style 1")) {
 			  st = new Style1();
 		  }
-		  //else if(s.equals("Style 2")) {
-			//  st = new Style2();
-		  //}
+		  else if(s.equals("Style 2")) {
+			st = new Style2();
+		  }
 		  
 		  else if(s.equals("Style 3")) {
-			  st = new Style3();
+			//  st = new Style3();
 		  } 
 		  MancalaModel m = new MancalaModel();
 		  PlayerController p = new PlayerController(m);
