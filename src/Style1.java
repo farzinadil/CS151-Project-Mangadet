@@ -11,4 +11,5 @@ public class Style1 implements Style {
   public Color getStoneColorP2() {
     return Color.RED;
   }
+
 }

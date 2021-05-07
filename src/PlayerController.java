@@ -15,6 +15,7 @@ public class PlayerController {
     private boolean previouslyUndone;
     private String gameStatus;
     private boolean gameStarted;
+    private boolean firstMoveMade;
     private boolean gameOver;
     private String winner;
     int previousPlayer;
@@ -30,6 +31,7 @@ public class PlayerController {
         gameStatus = "Select the number of stones per pit to begin game";
         gameStarted = false;
         gameOver = false;
+        firstMoveMade = false;
 
     }
     /**
@@ -139,7 +141,7 @@ public class PlayerController {
         previousStatus = gameStatus;
         previousPlayer = player;
         if (mancalaModel.move(pit,player-1)){
-            gameStatus = "Player " + player + "gets 2nd turn";
+            gameStatus = "Player " + player + "gets extra turn";
         }
         else if (player == 1){
             player = 2;
@@ -148,6 +150,10 @@ public class PlayerController {
         else {
             player = 1;
             gameStatus = "Player " + player + "'s turn";
+        }
+
+        if (!firstMoveMade){
+            firstMoveMade = true;
         }
         previouslyUndone = false;
         checkGameOver();
@@ -158,6 +164,9 @@ public class PlayerController {
     public void undo(){
         if (previouslyUndone){
             gameStatus = "Cannot undo twice";
+        }
+        else if (!firstMoveMade){
+            gameStatus = "Game hasn't started yet. Player 1 must make first turn.";
         }
         else {
             mancalaModel.undo();

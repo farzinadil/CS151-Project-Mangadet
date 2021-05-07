@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,8 +25,9 @@ public class SetupView extends JFrame implements ActionListener {
 		  p.add(s3);
 		  add(p);
 		  pack();
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			setVisible(true);
+		  setTitle("Mancala Setup");
+		  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		  setVisible(true);
 	  }
 
 	  public void actionPerformed(ActionEvent e) {
