@@ -77,6 +77,21 @@ public class BoardView extends JFrame implements ChangeListener {
                 g2.draw(a3);
                 g2.draw(a2);
                 g2.draw(a1);
+                
+                g2.fill(leftRectangle);
+                g2.fill(rightRectangle);
+                g2.fill(b6);
+                g2.fill(b5);
+                g2.fill(b4);
+                g2.fill(b3);
+                g2.fill(b2);
+                g2.fill(b1);
+                g2.fill(a6);
+                g2.fill(a5);
+                g2.fill(a4);
+                g2.fill(a3);
+                g2.fill(a2);
+                g2.fill(a1);
 
 
                 pits = mancalaModel.getPits();
