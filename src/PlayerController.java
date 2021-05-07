@@ -18,6 +18,8 @@ public class PlayerController {
     private boolean gameOver;
     private String winner;
     int previousPits[];
+    int previousPlayer;
+    String previousStatus;
 
     /**
      * Constructor of controller.
@@ -135,7 +137,8 @@ public class PlayerController {
      * @param pit The index of the pit in pits[] that has been selected by a player
      */
     private void move(int pit){
-        previousPits = mancalaModel.getPits();
+        previousStatus = gameStatus;
+        previousPlayer = player;
         if (mancalaModel.move(pit,player-1)){
             gameStatus = "Player " + player + "gets 2nd turn";
         }
@@ -158,15 +161,9 @@ public class PlayerController {
             gameStatus = "Cannot undo twice";
         }
         else {
-            mancalaModel.setPits(previousPits);
-            if (player == 1){
-                player = 2;
-                gameStatus = "Player 2 turn";
-            }
-            else {
-                player = 1;
-                gameStatus = "Player 1 turn";
-            }
+            mancalaModel.undo();
+            player = previousPlayer;
+            gameStatus = previousStatus;
             previouslyUndone = true;
         }
     }

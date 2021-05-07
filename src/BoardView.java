@@ -266,7 +266,7 @@ public class BoardView extends JFrame implements ChangeListener {
      */
     @Override
     public void stateChanged(ChangeEvent e) {
-        pits = mancalaModel.getPits();
+        //pits = mancalaModel.getPits();
         repaint();
     }
 
