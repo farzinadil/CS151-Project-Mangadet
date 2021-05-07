@@ -7,8 +7,9 @@ public class MancalaModel {
 	// Position A1-A6 is 0-5, B1-B6 is 7-12,
 	// 6 is the main pit for A, and 13 is the main pit for B
 	private int[] pits;
+	private int[] previousPits;
 	ArrayList<ChangeListener> listeners;
-	
+
 	/**
 	 * Constructor that creates initial mancalamodel with all pits set to 0
 	 */
@@ -20,7 +21,7 @@ public class MancalaModel {
 		}
 		listeners = new ArrayList<ChangeListener>();
 	}
-	
+
 	/**
 	 * moves the stones recursively for one turn.
 	 * @param position integer from 0-5 or 7-12.
@@ -28,6 +29,7 @@ public class MancalaModel {
 	 * @return true if the player gets an extra turn, false if not
 	 */
 	public boolean move(int position, int player) {
+		previousPits = pits.clone();
 		int hand = getStones(position); // this is like picking up the stones
 		setPits(position,0);
 		int pos = position;
@@ -51,7 +53,7 @@ public class MancalaModel {
 					hand--;
 				}
 				// hand will only be 0 here if the last stone has just been put into a mancala pit
-				if (hand == 0) { 
+				if (hand == 0) {
 					extraTurn = true;
 				}
 			}
@@ -76,12 +78,13 @@ public class MancalaModel {
 				}
 			}
 		}
-		
+
 		for (ChangeListener l : listeners)
 		{
 			l.stateChanged(new ChangeEvent(this));
 		}
 		return extraTurn;
+
 	}
 	
 	/**
@@ -109,7 +112,7 @@ public class MancalaModel {
 		}
 		
 	}
-	
+
 	public void setPits(int position, int value) {
 		// Update data
 		pits[position] = value;
@@ -121,6 +124,7 @@ public class MancalaModel {
 	}
 
 	public void setPits(int[] pits){
+		previousPits = pits.clone();
 		this.pits = pits;
 		for (ChangeListener l : listeners)
 		{
@@ -131,7 +135,15 @@ public class MancalaModel {
 	public int[] getPits(){
 		return pits;
 	}
-	
+
+	public void undo() {
+		pits = previousPits.clone();
+		for (ChangeListener l : listeners)
+		{
+			l.stateChanged(new ChangeEvent(this));
+		}
+	}
+
 	public int getStones(int i) {
 		return pits[i];
 	}
@@ -140,6 +152,7 @@ public class MancalaModel {
 	{
 		listeners.add(c);
 	}
+
 
 	
 }

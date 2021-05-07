@@ -15,9 +15,11 @@ public class PlayerController {
     private boolean previouslyUndone;
     private String gameStatus;
     private boolean gameStarted;
+    private boolean firstMoveMade;
     private boolean gameOver;
     private String winner;
-    int previousPits[];
+    int previousPlayer;
+    String previousStatus;
 
     /**
      * Constructor of controller.
@@ -29,6 +31,7 @@ public class PlayerController {
         gameStatus = "Select the number of stones per pit to begin game";
         gameStarted = false;
         gameOver = false;
+        firstMoveMade = false;
 
     }
     /**
@@ -136,9 +139,10 @@ public class PlayerController {
      * @param pit The index of the pit in pits[] that has been selected by a player
      */
     private void move(int pit){
-        previousPits = mancalaModel.getPits();
+        previousStatus = gameStatus;
+        previousPlayer = player;
         if (mancalaModel.move(pit,player-1)){
-            gameStatus = "Player " + player + "gets 2nd turn";
+            gameStatus = "Player " + player + "gets extra turn";
         }
         else if (player == 1){
             player = 2;
@@ -147,6 +151,10 @@ public class PlayerController {
         else {
             player = 1;
             gameStatus = "Player " + player + "'s turn";
+        }
+
+        if (!firstMoveMade){
+            firstMoveMade = true;
         }
         previouslyUndone = false;
         checkGameOver();
@@ -158,16 +166,13 @@ public class PlayerController {
         if (previouslyUndone){
             gameStatus = "Cannot undo twice";
         }
+        else if (!firstMoveMade){
+            gameStatus = "Game hasn't started yet. Player 1 must make first turn.";
+        }
         else {
-            mancalaModel.setPits(previousPits);
-            if (player == 1){
-                player = 2;
-                gameStatus = "Player 2 turn";
-            }
-            else {
-                player = 1;
-                gameStatus = "Player 1 turn";
-            }
+            mancalaModel.undo();
+            player = previousPlayer;
+            gameStatus = previousStatus;
             previouslyUndone = true;
         }
     }

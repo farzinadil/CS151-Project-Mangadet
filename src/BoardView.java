@@ -62,6 +62,7 @@ public class BoardView extends JFrame implements ChangeListener {
                 Ellipse2D.Double a4 = new Ellipse2D.Double(475, 185, 100, 125);
                 Ellipse2D.Double a5 = new Ellipse2D.Double(600, 185, 100, 125);
                 Ellipse2D.Double a6 = new Ellipse2D.Double(725, 185, 100, 125);
+                g2.setPaint(style.getPitColor());
                 g2.draw(leftRectangle);
                 g2.draw(rightRectangle);
                 g2.draw(b6);
@@ -76,8 +77,23 @@ public class BoardView extends JFrame implements ChangeListener {
                 g2.draw(a3);
                 g2.draw(a2);
                 g2.draw(a1);
-
                 
+                g2.fill(leftRectangle);
+                g2.fill(rightRectangle);
+                g2.fill(b6);
+                g2.fill(b5);
+                g2.fill(b4);
+                g2.fill(b3);
+                g2.fill(b2);
+                g2.fill(b1);
+                g2.fill(a6);
+                g2.fill(a5);
+                g2.fill(a4);
+                g2.fill(a3);
+                g2.fill(a2);
+                g2.fill(a1);
+
+
                 pits = mancalaModel.getPits();
                 int startX;
                 int startY;
@@ -97,7 +113,7 @@ public class BoardView extends JFrame implements ChangeListener {
                     else{
                         startX = 750-(pitNumber-7)*125;
                         startY = 45;
-                   
+
                     }
                     int rowCount = 0;
                     for (int rowIndex = 0; rowIndex < pits[pitNumber]; rowIndex++){
@@ -105,6 +121,12 @@ public class BoardView extends JFrame implements ChangeListener {
                             startY += 15;
                             startX -= 45;
                             rowCount = 0;
+                        }
+                        if(pitNumber >= 0 && pitNumber <= 6) {
+                          g2.setColor(style.getStoneColorP1());
+                        }
+                        else if(pitNumber >= 7 && pitNumber <= 13) {
+                          g2.setColor(style.getStoneColorP2());
                         }
                         g2.fill( new Ellipse2D.Double(startX, startY, 10, 10));
                         startX += 15;
@@ -170,6 +192,7 @@ public class BoardView extends JFrame implements ChangeListener {
         String[] stoneOptions = {"2", "3", "4"};
         JComboBox stoneNumber = new JComboBox(stoneOptions);
         stoneNumber.setBounds(775, 450, 100, 35);
+        stoneNumber.setName("Stones Per Pit");
         add(stoneNumber);
 
         JLabel statusLabel = new JLabel();
@@ -246,7 +269,7 @@ public class BoardView extends JFrame implements ChangeListener {
         barIconLabel.addMouseListener(IconListener);
         add(barIconLabel);
 
-
+        setTitle("Mancala");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
@@ -259,7 +282,7 @@ public class BoardView extends JFrame implements ChangeListener {
      */
     @Override
     public void stateChanged(ChangeEvent e) {
-        pits = mancalaModel.getPits();
+        //pits = mancalaModel.getPits();
         repaint();
     }
 
