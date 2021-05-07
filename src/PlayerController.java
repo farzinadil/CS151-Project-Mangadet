@@ -169,6 +169,9 @@ public class PlayerController {
         else if (!firstMoveMade){
             gameStatus = "Game hasn't started yet. Player 1 must make first turn.";
         }
+        else if (gameOver){
+            gameStatus = "Game has ended.";
+        }
         else {
             mancalaModel.undo();
             player = previousPlayer;
