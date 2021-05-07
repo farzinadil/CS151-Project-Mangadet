@@ -62,7 +62,7 @@ public class BoardView extends JFrame implements ChangeListener {
                 Ellipse2D.Double a4 = new Ellipse2D.Double(475, 185, 100, 125);
                 Ellipse2D.Double a5 = new Ellipse2D.Double(600, 185, 100, 125);
                 Ellipse2D.Double a6 = new Ellipse2D.Double(725, 185, 100, 125);
-                g2.setColor(style.getPitColor());
+                g2.setPaint(style.getPitColor());
                 g2.draw(leftRectangle);
                 g2.draw(rightRectangle);
                 g2.draw(b6);
@@ -177,6 +177,7 @@ public class BoardView extends JFrame implements ChangeListener {
         String[] stoneOptions = {"2", "3", "4"};
         JComboBox stoneNumber = new JComboBox(stoneOptions);
         stoneNumber.setBounds(775, 450, 100, 35);
+        stoneNumber.setName("Stones Per Pit");
         add(stoneNumber);
 
         JLabel statusLabel = new JLabel();
@@ -253,7 +254,7 @@ public class BoardView extends JFrame implements ChangeListener {
         barIconLabel.addMouseListener(IconListener);
         add(barIconLabel);
 
-
+        setTitle("Mancala");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
